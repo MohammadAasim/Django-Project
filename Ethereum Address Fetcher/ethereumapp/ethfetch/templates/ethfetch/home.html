@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ethereum App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body style="background-color: rgba(167, 247, 62, 0.664);">
+    <div class="container mt-4">
+        <h1 style="background-color: rgb(132, 203, 16); text-align: center;">Ethereum Address Fetcher</h1>
+        <form method="post" action="{% url 'fetch' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="address">Ethereum Address:</label>
+                <input type="text" class="form-control" id="address" name="address">
+            </div>
+            <button type="submit" class="btn btn-primary">Fetch</button>
+        </form>
+
+        {% if address %}
+            <h4>Address: {{ address }}</h4>
+            <h4>Balance: {{ balance }}</h4>
+
+            {% if transactions %}
+                <h4>Five recent transactions:</h4>
+                <style>
+                    .box-table {
+                        border: 1px solid black;
+                        border-collapse: separate;
+                        border-spacing: 0;
+                    }
+                
+                    .box-table th,
+                    .box-table td {
+                        border: 1px solid black;
+                        padding: 8px;
+                    }
+                </style>
+                <table class="table box-table">
+                    <thead>
+                        <tr>
+                            <th>Transaction Hash</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in transactions %}
+                            <tr>
+                                <td>{{ transaction.hash }}</td>
+                                <td>{{ transaction.value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No recent transactions found for the address.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
