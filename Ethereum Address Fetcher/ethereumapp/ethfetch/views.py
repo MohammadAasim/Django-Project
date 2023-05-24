@@ -7,7 +7,7 @@ def home(request):
 def fetch(request):
     if request.method == 'POST':
         address = request.POST['address']
-        api_key = '613EWC49SFB4C5TEHRY4YTXKPTVYM8J8DK'  # Replace with your Etherscan API key
+        api_key = 'Etherscan API key'  # Replace with  Etherscan API key
         
         balance_url = f'https://api.etherscan.io/api?module=account&action=balance&address={address}&apikey={api_key}'
         transaction_url = f'https://api.etherscan.io/api?module=account&action=txlist&address={address}&apikey={api_key}'
